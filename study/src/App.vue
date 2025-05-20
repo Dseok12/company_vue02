@@ -1,24 +1,10 @@
 <template>
   <!-- ========= -->
-  <div
-    class="black-bg"
+  <Modal
+    :원룸들="상태.원룸들"
+    :모달에보여줄물건순서="상태.모달에보여줄물건순서"
     v-if="상태.모달창열렸니"
-  >
-    <div
-      class="white-bg"
-      @click.stop
-    >
-      <h4>{{ 상태.원룸들[상태.모달에보여줄물건순서].title }}</h4>
-      <img
-        :src="상태.원룸들[상태.모달에보여줄물건순서].image"
-        :alt="상태.원룸들[상태.모달에보여줄물건순서].title"
-        class="modal--image"
-      />
-      <p>{{ 상태.원룸들[상태.모달에보여줄물건순서].price }} 원</p>
-      <p>{{ 상태.원룸들[상태.모달에보여줄물건순서].content }}</p>
-      <button @click="상태.모달창열렸니 = false">닫기</button>
-    </div>
-  </div>
+  />
 
   <!-- ========= -->
   <nav class="menu">
@@ -33,6 +19,9 @@
       >
     </div>
   </nav>
+
+
+  <Discount />
 
   <!-- ========= -->
   <div
@@ -57,6 +46,8 @@
 <script setup>
 import { reactive } from 'vue';
 import 원룸데이터 from './assets/oneroom.js'; // data가 아니라 default export라서 이름 아무거나 가능
+import Discount from './Discount.vue'; // 할인 컴포넌트 import
+import Modal from './Modal.vue'; // 모달 컴포넌트 import
 
 // 반응형 데이터 선언
 const 상태 = reactive({
@@ -68,6 +59,10 @@ const 상태 = reactive({
     { 이름: '상담신청', 링크: '/counsel' },
     { 이름: '매물등록', 링크: '/register' },
   ],
+  component: {
+    Discount,
+    Modal,
+  }
 });
 
 // 모달 열기 함수
